@@ -39,6 +39,7 @@ Page({
   onSwipeCellClose:function(event) {
     const { position, instance } = event.detail;
     console.log(event)
+    instance.close();
     switch (position) {
       case 'left':
       case 'cell':
@@ -67,13 +68,12 @@ Page({
     this.setData({ dialogShow: false});
   },
 
-  categoryChange: function () {
+  categoryChange: function (event) {
     this.setData({ categoryName: event.detail });
   },
 
   // 保存专题
   saveCategory: function (event) {
-    console.log(this.data.categoryName)
     if (!this.data.categoryName){
       wx.showToast({
         title: '专题名称不能为空',
@@ -81,6 +81,14 @@ Page({
       this.setData({ dialogShow: true });
       return
     }
+
+    if (!this.data.categoryId){
+      this.addCategory();
+    }else{
+      this.updateCategory();
+    }
+  },
+  addCategory: function () {
     const db = wx.cloud.database()
     db.collection('categories').add({
       data: {
@@ -101,4 +109,53 @@ Page({
       }
     })
   },
+  updateCategory: function () {
+    const db = wx.cloud.database()
+    db.collection('categories').doc(this.data.categoryId).update({
+      data: {
+        name: this.data.categoryName
+      },
+      success: res => {
+        this.categoryDialogClose();
+        this.setData({
+          categoryId: ""
+        })
+        wx.showToast({
+          title: '更新成功',
+        })
+        this.loadData();
+      },
+      fail: err => {
+        icon: 'none',
+          console.error('[数据库] [更新记录] 失败：', err)
+      }
+    })
+  },
+  removeCategory: function () {
+    if (this.data.categoryId) {
+      const db = wx.cloud.database()
+      db.collection('categories').doc(this.data.categoryId).remove({
+        success: res => {
+          wx.showToast({
+            title: '删除成功',
+          })
+          this.setData({
+            counterId: '',
+            count: null,
+          })
+        },
+        fail: err => {
+          wx.showToast({
+            icon: 'none',
+            title: '删除失败',
+          })
+          console.error('[数据库] [删除记录] 失败：', err)
+        }
+      })
+    } else {
+      wx.showToast({
+        title: '无记录可删，请见创建一个记录',
+      })
+    }
+  }
 })

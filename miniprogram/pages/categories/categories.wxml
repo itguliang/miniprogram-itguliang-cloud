@@ -1,6 +1,6 @@
 <!--pages/categories/categories.wxml-->
 <view>
-  <van-swipe-cell id="swipe-cell" right-width="{{ 90 }}" left-width="{{ 0 }}" async-close bind:close="onSwipeCellClose" wx:for="{{categories}}" wx:key="item._id">
+  <van-swipe-cell id="swipe-cell" right-width="{{ 95 }}" left-width="{{ 0 }}" async-close bind:close="onSwipeCellClose" wx:for="{{categories}}" wx:key="_id">
     <view class="category-card"> {{item.name}}</view>
     <view slot="right" class="category-card-opt">
       <text class="category-card-opt-edit" data-category-name="{{item.name}}" data-category-id="{{item._id}}" bindtap="categoryDialogShow">编辑</text>
