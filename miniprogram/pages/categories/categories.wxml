@@ -1,0 +1,16 @@
+<!--pages/categories/categories.wxml-->
+<view>
+  <view wx:for="{{categories}}" wx:key="item._id" class="category-card">
+    {{item.name}}
+  </view>
+  <view class="category-add">
+    <van-button icon="plus" type="default" bindtap="categoryDialogShow" />
+  </view>
+</view>
+
+<!--专题添加、修改-->
+<van-dialog use-slot asyncClose="true" title="" show="{{ dialogShow }}" show-cancel-button bind:cancel="categoryDialogClose" bind:confirm="saveCategory">
+  <van-cell-group>
+    <van-field value="{{ categoryName }}" placeholder="请输入专题" bind:change="categoryChange" />
+  </van-cell-group>
+</van-dialog>

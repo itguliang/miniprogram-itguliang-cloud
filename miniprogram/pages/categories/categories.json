@@ -1,0 +1,11 @@
+{
+  "usingComponents": {
+    "van-button": "@vant/weapp/button",
+    "van-dialog": "@vant/weapp/dialog",
+    "van-field": "@vant/weapp/field",
+    "van-grid": "@vant/weapp/grid",
+    "van-grid-item": "@vant/weapp/grid-item",
+    "van-row": "@vant/weapp/row",
+    "van-col": "@vant/weapp/col"
+  }
+}

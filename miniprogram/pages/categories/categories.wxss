@@ -1,0 +1,11 @@
+/* pages/categories/categories.wxss */
+.category-card{
+  margin: 40rpx 30rpx;
+  background: white;
+  padding: 30rpx;
+  border-radius: 10rpx;
+  box-shadow: 0 6rpx 12rpx rgba(0,0,0,0.1);
+}
+.category-add{
+  margin: 40rpx 30rpx;
+}
