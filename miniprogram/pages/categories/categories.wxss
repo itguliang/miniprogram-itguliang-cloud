@@ -1,11 +1,30 @@
 /* pages/categories/categories.wxss */
-.category-card{
-  margin: 40rpx 30rpx;
+.category-add,.category-card{
+  margin: 30rpx;
+}
+.category-card {
   background: white;
   padding: 30rpx;
   border-radius: 10rpx;
-  box-shadow: 0 6rpx 12rpx rgba(0,0,0,0.1);
+  box-shadow: 0 6rpx 12rpx rgba(0, 0, 0, 0.1);
 }
-.category-add{
-  margin: 40rpx 30rpx;
+
+.category-card-opt {
+  color: white;
+  font-size: 30rpx;
+  height: 100%;
+  display: flex;
+}
+
+.category-card-opt-edit,.category-card-opt-del{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 18rpx;
+}
+.category-card-opt-edit {
+  background: orange;
+}
+.category-card-opt-del {
+  background: red;
 }

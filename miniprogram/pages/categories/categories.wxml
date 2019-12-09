@@ -1,8 +1,12 @@
 <!--pages/categories/categories.wxml-->
 <view>
-  <view wx:for="{{categories}}" wx:key="item._id" class="category-card">
-    {{item.name}}
-  </view>
+  <van-swipe-cell id="swipe-cell" right-width="{{ 90 }}" left-width="{{ 0 }}" async-close bind:close="onSwipeCellClose" wx:for="{{categories}}" wx:key="item._id">
+    <view class="category-card"> {{item.name}}</view>
+    <view slot="right" class="category-card-opt">
+      <text class="category-card-opt-edit" data-category-name="{{item.name}}" data-category-id="{{item._id}}" bindtap="categoryDialogShow">编辑</text>
+      <text class="category-card-opt-del" data-category-id="{{item._id}}" bindtap="categoryDelConfirm">删除</text>
+    </view>
+  </van-swipe-cell>
   <view class="category-add">
     <van-button icon="plus" type="default" bindtap="categoryDialogShow" />
   </view>

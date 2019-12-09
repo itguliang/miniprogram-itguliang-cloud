@@ -7,7 +7,8 @@ Page({
    */
   data: {
     dialogShow:false,
-    categoryName:"",
+    categoryName: "",
+    categoryId:"",
     categories: [],
   },
 
@@ -18,48 +19,7 @@ Page({
     this.loadData();
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
+  // 加载专题列表
   loadData: function () {
     const db = wx.cloud.database()
     // 查询当前用户所有的 categories
@@ -75,18 +35,43 @@ Page({
       }
     })
   },
-  categoryDialogShow: function () {
+
+  onSwipeCellClose:function(event) {
+    const { position, instance } = event.detail;
+    console.log(event)
+    switch (position) {
+      case 'left':
+      case 'cell':
+        instance.close();
+        break;
+      case 'right':
+        // Dialog.confirm({
+        //   message: '确定删除吗？'
+        // }).then(() => {
+        //   instance.close();
+        // });
+        break;
+    }
+  },
+
+  categoryDialogShow: function (event) {
+    console.log(event.target.dataset.categoryId);
     this.setData({
-      categoryName: "",
+      categoryName: event.target.dataset.categoryName ? event.target.dataset.categoryName:"",
+      categoryId: event.target.dataset.categoryId ? event.target.dataset.categoryId : "",
       dialogShow: true
     });
   },
-  categoryDialogClose(event) {
+
+  categoryDialogClose: function () {
     this.setData({ dialogShow: false});
   },
-  categoryChange(event) {
+
+  categoryChange: function () {
     this.setData({ categoryName: event.detail });
   },
+
+  // 保存专题
   saveCategory: function (event) {
     console.log(this.data.categoryName)
     if (!this.data.categoryName){
@@ -104,22 +89,16 @@ Page({
       success: res => {
         this.categoryDialogClose();
         wx.showToast({
-          title: '新增记录成功',
+          title: '添加成功',
         })
         this.loadData();
       },
       fail: err => {
         wx.showToast({
           icon: 'none',
-          title: '新增记录失败'
+          title: '添加失败'
         })
       }
     })
   },
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })
