@@ -55,7 +55,6 @@ Page({
   },
 
   categoryDialogShow: function(event) {
-    console.log(event.target.dataset.categoryId);
     this.setData({
       categoryName: event.target.dataset.categoryName ? event.target.dataset.categoryName : "",
       categoryId: event.target.dataset.categoryId ? event.target.dataset.categoryId : "",

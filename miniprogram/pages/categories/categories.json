@@ -1,8 +1,6 @@
 {
   "usingComponents": {
-    "van-button": "@vant/weapp/button",
     "van-dialog": "@vant/weapp/dialog",
-    "van-field": "@vant/weapp/field",
     "van-swipe-cell": "@vant/weapp/swipe-cell"
   }
 }

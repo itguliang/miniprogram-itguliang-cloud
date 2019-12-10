@@ -1,10 +1,14 @@
 {
   "pages": [
-    "pages/categories/categories",
     "pages/home/home",
+    "pages/article/articleAddorEdit",
+    "pages/article/articleDetail",
+    "pages/categories/categories",
     "pages/user/user"
   ],
   "usingComponents": {
+    "van-field": "@vant/weapp/field",
+    "van-button": "@vant/weapp/button",
     "van-grid": "@vant/weapp/grid",
     "van-grid-item": "@vant/weapp/grid-item",
     "van-row": "@vant/weapp/row",
