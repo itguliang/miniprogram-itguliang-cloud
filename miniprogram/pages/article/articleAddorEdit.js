@@ -19,7 +19,7 @@ Page({
     })
   },
   // 保存文章
-  saveArticle: function (event) {
+  saveArticle: function(event) {
     if (!this.data.articleTitle) {
       wx.showToast({
         title: '文章标题不能为空',
@@ -38,18 +38,30 @@ Page({
       this.updateArticle();
     }
   },
-  addArticle(){
+  addArticle() {
     const db = wx.cloud.database()
     db.collection('articles').add({
       data: {
         title: this.data.articleTitle,
-        content: this.data.articleContent
+        content: this.data.articleContent,
+        commentNum: 0,
+        viewNum: 0,
+        likeNum:0
       },
       success: res => {
         wx.showToast({
           title: '发布成功',
         });
-        wx.navigateBack({});
+        var pages = getCurrentPages();
+        var prevPage = pages[pages.length - 2];
+        wx.navigateBack({
+          delta: 1, 
+          success: function() {
+            if (prevPage.route == 'pages/home/home') {
+              prevPage.loadData(); 
+            }
+          }
+        })
       },
       fail: err => {
         wx.showToast({

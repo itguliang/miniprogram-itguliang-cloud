@@ -7,6 +7,7 @@
     "pages/user/user"
   ],
   "usingComponents": {
+    "van-image": "@vant/weapp/image",
     "van-field": "@vant/weapp/field",
     "van-button": "@vant/weapp/button",
     "van-grid": "@vant/weapp/grid",
@@ -15,9 +16,9 @@
     "van-col": "@vant/weapp/col"
   },
   "window": {
-    "backgroundColor": "#F6F6F6",
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#F6F6F6",
+    "backgroundColor": "#efefef",
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "IT姑凉",
     "navigationBarTextStyle": "black"
   },

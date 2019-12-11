@@ -1,6 +1,6 @@
 /* pages/categories/categories.wxss */
 .category-add,.category-card{
-  margin: 15px;
+  margin: 16px;
 }
 .category-card {
   background: white;

@@ -6,26 +6,38 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    loading: false,
+    loadMore: true,
+    articles:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showToast({
+      title: '数据加载中',
+      icon: 'loading'
+    })
+    this.loadData();
+  },
 
-    // 调用云函数
-    wx.cloud.callFunction({
-      name: 'login',
-      data: {},
+  // 加载文章列表
+  loadData: function () {
+    const db = wx.cloud.database()
+    // 查询当前用户所有的 categories
+    db.collection('articles').get({
       success: res => {
-        console.log('[云函数] [login] user openid: ', res.result.openid)
-        app.globalData.openid = res.result.openid
+        wx.hideToast();
+        this.setData({
+          articles: res.data
+        });
+        wx.stopPullDownRefresh();
       },
       fail: err => {
-        console.error('[云函数] [login] 调用失败', err)
-        wx.navigateTo({
-          url: '../deployFunctions/deployFunctions',
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
         })
       }
     })
@@ -63,7 +75,12 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.setData({
+      loading: false,
+      // pageIndex: 1
+    })
+    // this.fetchData(this.data.pageIndex);
+    this.loadData();
   },
 
   /**

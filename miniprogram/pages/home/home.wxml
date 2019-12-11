@@ -1,2 +1,18 @@
 <!--pages/home/home.wxml-->
-<van-button type="warning" bindtap="addArticle"> + 写文章</van-button>
+<view>
+  <view class="article-card" gutter="20" wx:for="{{articles}}" wx:key="_id">
+    <view class="info">
+      <text>{{item.title}}</text>
+      <view>
+        <text>{{item.viewNum}}</text>
+        <text>{{item.likeNum}}</text>
+        <text>{{item.commentNum}}</text>
+      </view>
+    </view>
+    <view class="article-card-img">
+      <image src="https://img.yzcdn.cn/vant/cat.jpeg"></image>
+    </view>
+  </view>
+</view>
+
+<button class="btn-add" bindtap="addArticle"> + 写文章</button>
