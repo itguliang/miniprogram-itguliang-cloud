@@ -15,11 +15,32 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    // wx.cloud.callFunction({
+    //   // 云函数名称
+    //   name: 'getAccessToken',
+    //   success: function (res) {
+    //     console.log("微信公众号AccessToken:")
+    //     console.log(res.result) 
+    //   },
+    //   fail: console.error
+    // })
+    this.loadWechatPosts();
     wx.showToast({
       title: '数据加载中',
       icon: 'loading'
     })
     this.loadData();
+  },
+  loadWechatPosts:function(){
+    wx.cloud.callFunction({
+      // 云函数名称
+      name: 'getPosts',
+      success: function (res) {
+        console.log("微信公众号文章列表：")
+        console.log(res.result)
+      },
+      fail: console.error
+    })
   },
 
   // 加载文章列表
