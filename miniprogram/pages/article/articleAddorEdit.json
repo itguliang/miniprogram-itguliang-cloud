@@ -1,5 +1,7 @@
 {
   "navigationBarTitleText": "写文章 - IT姑凉",
-  "usingComponents": {},
+  "usingComponents": {
+    "van-uploader": "@vant/weapp/uploader"
+  },
   "disableScroll": true
 }

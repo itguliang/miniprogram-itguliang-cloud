@@ -1,14 +1,25 @@
 <view class="article-container" style="height:{{editorHeight}}px;">
-  <van-cell-group>
-    <van-field value="{{ articleTitle }}" placeholder="点击输入文章标题" border="{{ false }}" bind:change="onArticleTitleChange" />
-  </van-cell-group>
+  <!-- 标题封面 -->
+  <view class="article-info">
+    <van-cell-group>
+      <van-field value="{{ articleTitle }}" placeholder="点击输入文章标题" border="{{ false }}" bind:change="onArticleTitleChange" />
+    </van-cell-group>
+    <view class="article-upload">
+      <van-uploader file-list="{{ articleCover }}" bind:after-read="uploadCover" bind:delete="delCover" max-count="1" />
+      <!-- <image class="image1" src="{{articleCover}}" mode="aspectFit"></image> -->
+    </view>
+  </view>
+
+
   <editor id="editor" class="ql-container" placeholder="{{placeholder}}" bindinput="onArticleContentChange" bindstatuschange="onStatusChange" bindready="onEditorReady">
   </editor>
+
+
   <view class="btn-save" hidden="{{keyboardHeight > 0 ? true : false}}">
     <van-button type="primary" size="large" bindtap="saveArticle">发布</van-button>
   </view>
-  
-  <view class="toolbar" catchtouchend="format" hidden="{{keyboardHeight > 0 ? false : true}}"style="bottom: {{isIOS ? keyboardHeight : 0}}px">
+
+  <view class="toolbar" catchtouchend="format" hidden="{{keyboardHeight > 0 ? false : true}}" style="bottom: {{isIOS ? keyboardHeight : 0}}px">
     <i class="iconfont icon-charutupian" catchtouchend="insertImage"></i>
     <i class="iconfont icon-format-header-2 {{formats.header === 2 ? 'ql-active' : ''}}" data-name="header" data-value="{{2}}"></i>
     <i class="iconfont icon-format-header-3 {{formats.header === 3 ? 'ql-active' : ''}}" data-name="header" data-value="{{3}}"></i>

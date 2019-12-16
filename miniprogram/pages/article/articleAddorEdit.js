@@ -1,7 +1,8 @@
 Page({
   data: {
-    placeholder: '在此输入文章内容...',
+    placeholder: '点此输入文章内容...',
     articleTitle: "",
+    articleCover: [],
     articleContent: "",
     readOnly: false,
     editorHeight: 300,
@@ -11,6 +12,47 @@ Page({
   onArticleTitleChange(e) {
     this.setData({
       articleTitle: e.detail
+    })
+  },
+  delCover(e) {
+    this.setData({
+      articleCover: []
+    })
+  },
+  // 上传图片
+  uploadCover: function(event) {
+    var that = this;
+    const {
+      file
+    } = event.detail;
+
+    const filePath = file.path;
+
+    // 上传图片
+    const cloudPath = 'my-image' + filePath.match(/\.[^.]+?$/)[0];
+
+    wx.cloud.uploadFile({
+      cloudPath,
+      filePath,
+      success: res => {
+        console.log('[上传文件] 成功：', res)
+
+        this.setData({
+          articleCover: [{
+            url: res.fileID
+          }]
+        });
+      },
+      fail: e => {
+        console.error('[上传文件] 失败：', e)
+        wx.showToast({
+          icon: 'none',
+          title: '上传失败',
+        })
+      },
+      complete: () => {
+        wx.hideLoading()
+      }
     })
   },
   onArticleContentChange(e) {
@@ -37,28 +79,37 @@ Page({
     } else {
       this.updateArticle();
     }
+
   },
+  // 添加文章
   addArticle() {
+    wx.showToast({
+      title: '正在发布中',
+      icon: 'loading'
+    })
     const db = wx.cloud.database()
     db.collection('articles').add({
       data: {
         title: this.data.articleTitle,
+        cover: this.data.articleCover[0] && this.data.articleCover[0].url ? this.data.articleCover[0].url:"",
         content: this.data.articleContent,
         commentNum: 0,
         viewNum: 0,
-        likeNum:0
+        likeNum: 0
       },
       success: res => {
+        
         wx.showToast({
           title: '发布成功',
         });
+
         var pages = getCurrentPages();
         var prevPage = pages[pages.length - 2];
         wx.navigateBack({
-          delta: 1, 
+          delta: 1,
           success: function() {
             if (prevPage.route == 'pages/home/home') {
-              prevPage.loadData(); 
+              prevPage.loadData();
             }
           }
         })
@@ -71,6 +122,9 @@ Page({
       }
     })
   },
+
+
+
   readOnlyChange() {
     this.setData({
       readOnly: !this.data.readOnly
@@ -140,7 +194,6 @@ Page({
     if (!name) return
     // console.log('format', name, value)
     this.editorCtx.format(name, value)
-
   },
   onStatusChange(e) {
     const formats = e.detail

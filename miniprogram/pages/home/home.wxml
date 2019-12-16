@@ -1,6 +1,6 @@
 <!--pages/home/home.wxml-->
 <view>
-  <view class="article-card" gutter="20" wx:for="{{articles}}" wx:key="_id">
+  <view class="article-card {{item.cover?'':'full'}}" gutter="20" wx:for="{{articles}}" wx:key="_id">
     <view class="info">
       <text>{{item.title}}</text>
       <view>
@@ -10,9 +10,9 @@
       </view>
     </view>
     <view class="article-card-img">
-      <image src="https://img.yzcdn.cn/vant/cat.jpeg"></image>
+      <image src="{{item.cover}}"></image>
     </view>
   </view>
 </view>
 
-<button class="btn-add" bindtap="addArticle"> + 写文章</button>
+<button class="btn-add" wx:if="{{addArticleBtnShow}}" bindtap="addArticle"> + 写文章</button>

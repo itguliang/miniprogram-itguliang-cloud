@@ -1,10 +1,16 @@
 /* pages/home/home.wxss */
 
 .article-card {
+  box-sizing:border-box;
   border-bottom: 1px solid #efefef;
   padding: 16px 90px 16px 16px;
   background: white;
   position: relative;
+  height: 100px;
+}
+
+.article-card.full{
+  padding:16px;
 }
 
 .article-card-img {

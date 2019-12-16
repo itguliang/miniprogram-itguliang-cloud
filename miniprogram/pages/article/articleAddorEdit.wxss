@@ -14,6 +14,14 @@
   width: 100%;
 }
 
+.article-info{
+  background: white;
+  padding-bottom:16px;
+}
+
+.article-upload{
+  margin:0 16px;
+}
 .ql-container {
   box-sizing: border-box;
   width: 100%;
@@ -22,7 +30,6 @@
   line-height: 1.5;
   overflow: auto;
   padding: 10px 10px 20px 10px;
-  border: 1px solid #ECECEC;
 }
 
 .ql-active {

@@ -6,6 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    scrollTop:0,
+    addArticleBtnShow:true,
     loading: false,
     loadMore: true,
     articles:[]
@@ -24,7 +26,7 @@ Page({
     //   },
     //   fail: console.error
     // })
-    this.loadWechatPosts();
+    // this.loadWechatPosts();
     wx.showToast({
       title: '数据加载中',
       icon: 'loading'
@@ -116,6 +118,16 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  onPageScroll: function (e) {
+    // console.log(e);
+    if (e.scrollTop>this.data.scrollTop){
+      this.setData({ addArticleBtnShow: false });
+    }else{
+      this.setData({ addArticleBtnShow: true });
+    }
+    this.setData({ scrollTop: e.scrollTop});
   },
 
   //写文章
